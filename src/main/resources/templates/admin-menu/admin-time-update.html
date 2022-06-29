@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Book Antiqua, Helvetica, sans-serif;
+        }
+
+        .header {
+            overflow: hidden;
+            background-color: #eecffd;
+            padding: 20px 10px;
+        }
+
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+
+        .header a:hover {
+            background-color: #51c6f8;
+            color: black;
+        }
+        .header-right {
+            float: right;
+        }
+
+        @media screen and (max-width: 500px) {
+            .header a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+
+            .header-right {
+                float: none;
+            }
+        }
+
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {background-color: #eecffd;}
+    </style>
+    <title>Title</title>
+</head>
+
+<header>
+    <div id="header" class="header">
+        <!--/*@thymesVar id="usersActivityDTO" type="com.parpiiev.time.utils.dto.UsersActivityDTO"*/-->
+        <a th:href="@{/admin-menu/admin-time-edit/{id}(id=${usersActivityDTO.activity_id})}" class="logo">
+            <span th:text="#{label.header.name}" /></a>
+        <div class="header-right">
+
+            <button type="button" th:text="#{label.lang.en}"
+                    onclick="window.location.href='http://localhost:8080/admin-menu/' +
+                     'admin-time-edit/{id}(id=${usersActivityDTO.activity_id})?localeData=en'"></button>
+            <button type="button" th:text="#{label.lang.ukr}"
+                    onclick="window.location.href='http://localhost:8080/admin-menu/' +
+                     'admin-time-edit/{id}(id=${usersActivityDTO.activity_id})?localeData=ukr'"></button>
+            <button type="button" th:text="#{button.back}" onclick="window.location.href='http://localhost:8080/admin-menu'"></button>
+            <button type="button" th:text="#{ref.logout}" onclick="window.location.href='/logout'"></button>
+        </div>
+    </div>
+</header>
+
+<body>
+
+<!--/*@thymesVar id="usersActivityDTO" type="com.parpiiev.time.utils.dto.UsersActivityDTO"*/-->
+<form method="post" action="#" th:action="@{/admin-menu/admin-time-edit/edit/{id}(id=${usersActivityDTO.id})}"
+      th:object="${usersActivityDTO}">
+    <label for="time"><span th:text="#{label.time}" ></span> </label><br>
+    <input type="text" th:field="*{time}" id="time"/>
+    <div style="color:red" th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Time Error</div>
+    <br>
+    <input type="submit" th:value="#{label.time.update}">
+</form>
+
+</body>
+</html>

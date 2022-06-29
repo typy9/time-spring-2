@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>login</title>
+
+    <style>
+        body {font-family: Book Antiqua, Helvetica, sans-serif;}
+        form {border: 2px solid #f1f1f1; align-self: center}
+        input[type=text], input[type=password] {
+            width: 25%;
+            padding: 10px 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            box-shadow:0 0 15px 4px rgba(0,0,0,0.05);
+            -webkit-transition: 750ms;
+            transition: 350ms;
+            outline: none;
+        }.type-1 {
+             border-radius:10px;
+             transition: .3s border-color;
+         }
+
+        input[type=text]:focus, input[type=password]:focus {
+            border: 2px solid #555;
+        }
+
+        input[type=submit] {
+            background-color: #eecffd;
+            color: white;
+            padding: 10px 10px;
+            margin: 10px 0;
+            border: none;
+            cursor: pointer;
+            width: 25%;
+        }.button {
+             border-radius:10px;
+             transition: .3s border-color;
+         }
+
+        input[type=submit]:hover {
+            opacity: 0.8;
+        }
+
+        * {box-sizing: border-box;}
+
+        body {
+            margin: 0;
+            font-family: Book Antiqua, Helvetica, sans-serif;
+        }
+
+        .header {
+            overflow: hidden;
+            background-color: #eecffd;
+            padding: 20px 10px;
+        }
+
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+
+        .header a:hover {
+            background-color: #51c6f8;
+            color: black;
+        }
+        .header-right {
+            float: right;
+        }
+
+        @media screen and (max-width: 500px) {
+            .header a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+            .header-right {
+                float: none;
+            }
+        }
+    </style>
+</head>
+
+<header>
+<div id="header" class="header">
+    <a th:href="@{/}" class="logo"> <span th:text="#{label.header.name}" /></a>
+    <div class="header-right">
+        <!--        <a> <tf:date_time/> </a>-->
+        <button type="button" th:text="#{label.lang.en}" onclick="window.location.href='http://localhost:8080/?localeData=en'"></button>
+        <button type="button" th:text="#{label.lang.ukr}" onclick="window.location.href='http://localhost:8080/?localeData=ukr'"></button>
+    </div>
+</div>
+</header>
+
+
+<body>
+
+<div class="form">
+    <br>
+    <!--/*@thymesVar id="userDTO" type="com.parpiiev.time.utils.dto.UserDTO"*/-->
+    <form id="log" method="post" action="#" th:action="@{/}" th:object="${userDTO}" style="text-align: center">
+        <b><label th:text="#{label.form.login}"></label></b><br>
+        <label for="login"></label>
+        <input required type="text" th:placeholder="#{login.placeholder}" th:field="*{login}"
+               name="login" id="login" class="type-1"/>
+        <br>
+        <b><label th:text="#{label.password}"></label></b><br>
+        <label for="password"></label>
+        <input required type="password" th:placeholder="#{password.placeholder}" th:field="*{password}"
+                                             name="password" id="password" class="type-1"/>
+        <br>
+        <input class="button" type="submit" th:value="#{button.submit}"/>
+    </form>
+
+
+</div>
+
+<div class="form">
+    <form id="registration" method="get" action="#" th:action="@{/registration}" style="text-align: center">
+        <input class="button" type="submit" th:value="#{button.registration}"/>
+    </form>
+    <br/>
+</div>
+
+
+</body>
+</html>
