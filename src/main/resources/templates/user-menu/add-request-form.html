@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add-request-form</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Book Antiqua, Helvetica, sans-serif;
+        }
+
+        .header {
+            overflow: hidden;
+            background-color: #eecffd;
+            padding: 20px 10px;
+        }
+
+        .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+
+        .header a:hover {
+            background-color: #51c6f8;
+            color: black;
+        }
+        .header-right {
+            float: right;
+        }
+
+        @media screen and (max-width: 500px) {
+            .header a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+
+            .header-right {
+                float: none;
+            }
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {background-color: #eecffd;}
+        h3 {text-align: left;}
+    </style>
+</head>
+
+<header>
+    <div id="header" class="header">
+        <!--/*@thymesVar id="userId" type=""*/-->
+        <a th:href="@{/user-menu/add-request-form/{id}(id=${userId})}" class="logo"> <span th:text="#{label.header.name}" /></a>
+        <div class="header-right">
+
+            <button type="button" th:text="#{label.lang.en}" onclick="window.location.href='http://localhost:8080/user-menu/add-request-form/{id}?localeData=en'"></button>
+            <button type="button" th:text="#{label.lang.ukr}" onclick="window.location.href='http://localhost:8080/user-menu/add-request-form/{id}?localeData=ukr'"></button>
+            <button type="button" th:text="#{button.back}" onclick="window.location.href='http://localhost:8080/user-menu'"></button>
+            <button type="button" th:text="#{ref.logout}" onclick="window.location.href='/logout'"></button>
+        </div>
+    </div>
+</header>
+
+<body>
+
+<h3><span th:text="#{label.add.request}" /></h3>
+
+<form method="post" action="#" th:action="@{/user-menu/add-request-form}"
+      th:object="${activity}">
+
+    <label for="activityId" > <span th:text="#{label.activity}" ></span> </label><br>
+    <!--/*@thymesVar id="activity" type="com.parpiiev.time.utils.dto.ActivityDTO"*/-->
+    <div class="col-lg-3" th:object="${activity}">
+        <select required class="form-control" id="activityId" name="activityId" >
+            <option value="" > Select Activity </option>
+            <!--/*@thymesVar id="activities" type="java.util.List"*/-->
+            <option th:each="activity : ${activities}"
+                    th:value="${activity.activity_id}"
+                    th:text="${activity.activity_id}+' : '+${activity.name}"></option>
+        </select>
+    </div>
+    <br>
+    <input type="submit" th:value="#{label.add.request}">
+</form>
+
+</body>
+</html>
